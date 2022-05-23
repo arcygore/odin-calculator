@@ -10,7 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #22223B;
-    font-family: 'Monoton', cursive;
+    font-family: 'Odibee Sans', cursive;
 }
 
 .calc-container {
@@ -45,13 +45,13 @@ body {
 
 .previous-entry {
     height: 8vh;
-    font-size: 1rem;
+    font-size: 2rem;
 }
 
 .current-entry {
     display: flex;
     height: 12vh;
-    font-size: 2.5rem;
+    font-size: 4rem;
     word-wrap: normal;
 }
 

@@ -53,14 +53,16 @@ decimal.addEventListener('click', (e) => {
 operandButtons.forEach(function(operand) {
     operand.addEventListener('click', (e) => {
         if (!operation) {
-            if (currentEntry.textContent != '8008135' && currentEntry.textContent != '' && currentEntry.textContent != '0') {
+            if (currentEntry.textContent !== '8008135' && currentEntry.textContent != '' && currentEntry.textContent != '0') {
                 let op = e.explicitOriginalTarget.innerText;
                 prevNum = currentValue.join('');
                 previousEntry.textContent = `${prevNum} ${op}`;
                 operation = operand.classList[1];
+                currentEntry.textContent = '';
+                currentValue = [];
             }
         } else {
-            if (currentEntry.textContent != '8008135' && currentEntry.textContent != '' && currentEntry.textContent != '0') {
+            if (currentEntry.textContent !== '8008135' && currentEntry.textContent != '' && currentEntry.textContent != '0') {
                 num2 = parseFloat(currentEntry.textContent);
                 num1 = parseFloat(previousEntry.textContent.slice(0,-1));
                 op = e.explicitOriginalTarget.innerText;
@@ -76,11 +78,13 @@ operandButtons.forEach(function(operand) {
                 else if (operation == 'division') {
                     previousEntry.textContent = `${divide(num1,num2)} ${op}`;
                 }
+                operation = operand.classList[1];
+                currentEntry.textContent = '';
+                currentValue = [];
             }
         }
-        currentEntry.textContent = '';
-        currentValue = [];
-        operation = operand.classList[1];
+
+
     })
 });
 
@@ -108,7 +112,8 @@ equals.addEventListener('click', (e) => {
     operation = undefined;
 })
 
-// Keyboard entry
+// Keyboard entry -- this feature was abandoned for now because I think I wrote this entire project wrong. I needed to have a bunch of separate functions for everything, but performed everything on the 
+// addEventListener functions when clicked. This was not smart as now I cannot reuse functions with a "touch" or "type" event without potentially invoking them twice.
 
 
 // del.addEventListener('click', (e) => {
@@ -294,18 +299,24 @@ equals.addEventListener('click', (e) => {
 
 
 function add(x,y) {
-    return x+y;
+    if ((x+y)%1 > 0) return (x+y).toFixed(8);
+    else return x+y;
 }
 
 function subtract(x,y) {
-    return x-y;
+    if ((x-y)%1 > 0) return (x-y).toFixed(8);
+    else return x-y;
 }
 
 
 function multiply(x,y) {
-    return x*y;
+    if ((x*y)%1 > 0) return (x*y).toFixed(8);
+    else return x*y;
 }
 
 function divide(x,y) {
-    return x/y;
+    if (y) {
+        if ((x/y)%1 > 0) return (x/y).toFixed(8);
+        else return x/y;}
+    else return "2 INFINITY N BEYOND";
 }
